@@ -6,15 +6,15 @@ import 'package:weather_app/controllers/weather_controller.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
 class WeatherPage extends StatelessWidget {
-  const WeatherPage({Key? key}) : super(key: key);
+  WeatherPage({Key? key}) : super(key: key);
+  final c = Get.put(WeatherController());
+  // final width = MediaQuery.of(context).size.width;
+  // final height = MediaQuery.of(context).size.height;
+  var day = DateFormat.d().format(DateTime.now());
+  var month = DateFormat.LLLL().format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
-    final c = Get.put(WeatherController());
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-    var day = DateFormat.d().format(DateTime.now());
-    var month = DateFormat.LLLL().format(DateTime.now());
     TextEditingController cityText = TextEditingController();
 
     handleSearchCity() {
@@ -65,7 +65,7 @@ class WeatherPage extends StatelessWidget {
       return Center(
         child: Container(
           margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
-          height: height * 0.2,
+          height: 150,
           child: SimpleShadow(
             opacity: 0.20,
             color: Colors.black,
@@ -82,7 +82,7 @@ class WeatherPage extends StatelessWidget {
                 : (c.weatherIcon.value != '' ? LottieBuilder.network(
               c.weatherIcon.value,
               fit: BoxFit.cover,
-              width: width * 0.4,
+              width: 200,
             ) : const SizedBox()),
           ),
         ),
@@ -311,7 +311,7 @@ class WeatherPage extends StatelessWidget {
     return Obx(
           () => Scaffold(
         body: Container(
-          height: height,
+          // height: height,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.bottomLeft,
