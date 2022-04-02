@@ -8,18 +8,14 @@ import 'package:simple_shadow/simple_shadow.dart';
 class WeatherPage extends StatelessWidget {
   WeatherPage({Key? key}) : super(key: key);
   final c = Get.put(WeatherController());
-  // final width = MediaQuery.of(context).size.width;
-  // final height = MediaQuery.of(context).size.height;
   var day = DateFormat.d().format(DateTime.now());
   var month = DateFormat.LLLL().format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
     TextEditingController cityText = TextEditingController();
-
     handleSearchCity() {
       c.fetchWeather(cityText.text);
-      // Close keyboard after enter
       FocusScopeNode currentFocus = FocusScope.of(context);
       if (!currentFocus.hasPrimaryFocus) {
         currentFocus.unfocus();
@@ -88,7 +84,6 @@ class WeatherPage extends StatelessWidget {
         ),
       );
     }
-
     Widget weatherInformation() {
       return Container(
         margin: EdgeInsets.fromLTRB(30, 40, 30, 0),
@@ -115,21 +110,16 @@ class WeatherPage extends StatelessWidget {
           ),
         )
             : Column(
-          children: [
+            children: [
             // Date
-            Container(
-              child: Text(
+            Text(
                 'Today, $day $month',
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.white,
                 ),
               ),
-            ),
-            // Temperature
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 15, 0, 0),
-              child: SimpleShadow(
+            SimpleShadow(
                 opacity: 0.25,
                 color: Colors.black,
                 offset: Offset(3, 7),
@@ -143,11 +133,7 @@ class WeatherPage extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-            // Weather Description
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Text(
+            Text(
                 '${c.weather.value.description.toUpperCase()}',
                 style: TextStyle(
                   fontSize: 22,
@@ -155,14 +141,10 @@ class WeatherPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-            // Weather Detail
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 27, 0, 0),
-              child: Row(
+            const SizedBox(height: 20),
+            Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Icon
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -188,7 +170,6 @@ class WeatherPage extends StatelessWidget {
                     ],
                   ),
                   SizedBox(width: 20),
-                  // Type
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -302,7 +283,6 @@ class WeatherPage extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
           ],
         ),
       );
