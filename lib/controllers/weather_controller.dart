@@ -1,6 +1,7 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/services/weather_service.dart';
 
@@ -15,6 +16,8 @@ class WeatherController extends GetxController {
     humidity: 0,
   ).obs;
   var cityValue = ''.obs;
+  var day = DateFormat.d().format(DateTime.now());
+  var month = DateFormat.LLLL().format(DateTime.now());
   final _weatherIconList = [
     'https://assets9.lottiefiles.com/temp/lf20_XkF78Y.json', //thunderstorm
     'https://assets9.lottiefiles.com/temp/lf20_rpC1Rd.json', //rain
