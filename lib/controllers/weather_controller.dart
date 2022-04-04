@@ -58,9 +58,9 @@ class WeatherController extends GetxController {
       weatherIcon.value = _weatherIconList[0];
     } else if (weatherId < 532) {
       weatherIcon.value = _weatherIconList[1];
-    } else if (weatherId < 622) {
+    } else if (weatherId < 610) {
       weatherIcon.value = _weatherIconList[2];
-    } else if (weatherId < 781) {
+    } else if (weatherId < 750) {
       weatherIcon.value = _weatherIconList[3];
     } else if (weatherId == 800) {
       weatherIcon.value = _weatherIconList[4];
@@ -95,6 +95,6 @@ class WeatherController extends GetxController {
     List<Placemark> placemarks = await placemarkFromCoordinates(longitude, latitude);
     Placemark newPlacemark = placemarks.first;
     cityValue.value=newPlacemark.administrativeArea!;
-    print('==================${cityValue.value}');
+    print('=====================${cityValue.value}');
   }
 }

@@ -7,7 +7,6 @@ import 'package:weather_app/controllers/weather_controller.dart';
 class WeatherIcon extends StatelessWidget {
   WeatherIcon({Key? key}) : super(key: key);
   final c = Get.put(WeatherController());
-
   @override
   Widget build(BuildContext context) {
     return Center(
