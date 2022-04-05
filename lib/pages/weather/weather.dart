@@ -4,6 +4,7 @@ import 'package:weather_app/common/bar.dart';
 import 'package:weather_app/common/label.dart';
 import 'package:weather_app/controllers/weather_controller.dart';
 import 'package:simple_shadow/simple_shadow.dart';
+import 'package:weather_app/pages/guess/guess.dart';
 import 'package:weather_app/pages/search/search.dart';
 import 'package:weather_app/pages/weathericon/weathericon.dart';
 
@@ -35,7 +36,6 @@ class WeatherPage extends StatelessWidget {
                   Container(
                     margin:const EdgeInsets.fromLTRB(20, 40, 20, 0),
                     padding:const EdgeInsets.fromLTRB(0, 25, 0, 25),
-                    width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
@@ -46,116 +46,129 @@ class WeatherPage extends StatelessWidget {
                     ),
                     child: c.isLoading.value
                         ? Center(
-                            child:const SizedBox(
-                              width: 100,
-                              height: 100,
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                              ),
-                            ),
-                          )
+                      child:const SizedBox(
+                        width: 100,
+                        height: 100,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
                         : Column(
-                            children: [
-                              // Date
-                              Text(
-                                'Today: ${c.day} ${c.month}',
-                                style:const TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SimpleShadow(
-                                opacity: 0.25,
-                                color: Colors.black,
-                                offset: Offset(3, 7),
-                                sigma: 25,
-                                child: Text(
-                                  '${(c.weather.value.temp - 273).toStringAsFixed(0)}\u00B0',
-                                  style:const TextStyle(
-                                    fontSize: 90,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                '${c.weather.value.description.toUpperCase()}',
-                                style:const TextStyle(
-                                  fontSize: 22,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Label(icon: Icons.flag_outlined,title: 'Country'),
-                                      const SizedBox(height: 15),
-                                      Label(icon:Icons.location_on_outlined,title: 'City'),
-                                      const SizedBox(height: 15),
-                                      Label(icon: Icons.air,title: 'Wind'),
-                                      const SizedBox(height: 15),
-                                      Label(icon: Icons.water_damage_outlined,title: 'Humidity'),
-                                    ],
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Column(
-                                    children: [
-                                      Bar(),
-                                      const SizedBox(height: 13),
-                                      Bar(),
-                                      const SizedBox(height: 13),
-                                      Bar(),
-                                      const SizedBox(height: 13),
-                                      Bar(),
-                                    ],
-                                  ),
-                                  const SizedBox(width: 20),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        '${c.weather.value.country}',
-                                        style:const  TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 17),
-                                      Text(
-                                        '${c.weather.value.name}',
-                                        style:const TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 17),
-                                      Text(
-                                        '${c.weather.value.speed} km/h',
-                                        style:const TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 17),
-                                      Text(
-                                        '${c.weather.value.humidity} %',
-                                        style:const TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
+                      children: [
+                        Text(
+                          'Today: ${c.day} ${c.month}',
+                          style:const TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
                           ),
-                  )
+                        ),
+                        SimpleShadow(
+                          opacity: 0.25,
+                          color: Colors.black,
+                          offset: Offset(3, 7),
+                          sigma: 25,
+                          child: Text(
+                            '${(c.weathers.value.temp - 273.15).toStringAsFixed(0)}\u00B0',
+                            style:const TextStyle(
+                              fontSize: 90,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          '${c.weathers.value.description.toUpperCase()}',
+                          style:const TextStyle(
+                            fontSize: 22,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Label(icon: Icons.flag_outlined,title: 'Country'),
+                                const SizedBox(height: 15),
+                                Label(icon:Icons.location_on_outlined,title: 'City'),
+                                const SizedBox(height: 15),
+                                Label(icon: Icons.air,title: 'Wind'),
+                                const SizedBox(height: 15),
+                                Label(icon: Icons.water_damage_outlined,title: 'Humidity'),
+                                const SizedBox(height: 15),
+                                Label(icon: Icons.arrow_upward_rounded,title: 'Pressure'),
+                              ],
+                            ),
+                            const SizedBox(width: 10),
+                            Column(
+                              children: [
+                                Bar(),
+                                const SizedBox(height: 13),
+                                Bar(),
+                                const SizedBox(height: 13),
+                                Bar(),
+                                const SizedBox(height: 13),
+                                Bar(),
+                                const SizedBox(height: 13),
+                                Bar(),
+                              ],
+                            ),
+                            const SizedBox(width: 20),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${c.weathers.value.country}',
+                                  style:const  TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const SizedBox(height: 17),
+                                Text(
+                                  '${c.weathers.value.name}',
+                                  style:const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const SizedBox(height: 17),
+                                Text(
+                                  '${c.weathers.value.speed} m/s',
+                                  style:const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const SizedBox(height: 17),
+                                Text(
+                                  '${c.weathers.value.humidity} %',
+                                  style:const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const SizedBox(height: 17),
+                                Text(
+                                  '${c.weathers.value.pressure} PA',
+                                  style:const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  GuessPage(),
                 ],
               ),
             ),

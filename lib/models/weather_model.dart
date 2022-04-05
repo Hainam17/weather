@@ -6,6 +6,7 @@ class WeatherModel {
   String description;
   double speed;
   double temp;
+  int pressure;
 
   WeatherModel({
     required this.id,
@@ -15,6 +16,7 @@ class WeatherModel {
     required this.speed,
     required this.temp,
     required this.humidity,
+    required this.pressure
   });
 
   factory WeatherModel.fromJson(Map<String, dynamic> json) => WeatherModel(
@@ -25,5 +27,6 @@ class WeatherModel {
         speed: json["wind"]["speed"],
         temp: json["main"]["temp_min"],
         humidity: json["main"]["humidity"],
+        pressure: json["main"]["pressure"],
       );
 }

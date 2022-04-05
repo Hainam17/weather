@@ -5,8 +5,10 @@ import 'package:intl/intl.dart';
 import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/services/weather_service.dart';
 
+import 'daily_two_day_model.dart';
+
 class WeatherController extends GetxController {
-  var weather = WeatherModel(
+  var weathers = WeatherModel(
     id: 0,
     description: '',
     country: '',
@@ -14,6 +16,9 @@ class WeatherController extends GetxController {
     speed: 0,
     temp: 0,
     humidity: 0,
+    pressure: 0,
+  ).obs;
+  var guess = DailyTwoDay(
   ).obs;
   var cityValue = ''.obs;
   var day = DateFormat.d().format(DateTime.now());
@@ -34,8 +39,9 @@ class WeatherController extends GetxController {
   onInit() {
     super.onInit();
     getLocation();
-    Future.delayed(Duration(seconds: 7),(){
+    Future.delayed(Duration(seconds: 8),(){
       fetchWeather(cityValue.value);
+      guessWeather(cityValue.value);
     });
   }
 
@@ -44,16 +50,27 @@ class WeatherController extends GetxController {
     try {
       var _weatherInfo =
       await WeatherService().fetchWeather(city);
-      weather.value = _weatherInfo;
+      weathers.value = _weatherInfo;
       fetchWeatherIcon();
     } catch (e) {
       print(e);
     }
     isLoading.value = false;
   }
+  Future guessWeather(String city) async {
+    isLoading.value = true;
+    try {
+      var _twoDaily =
+      await WeatherService().guessWeather(city);
+      guess.value= _twoDaily;
+    } catch (f) {
+      print(f);
+    }
+    isLoading.value = false;
+  }
 
   fetchWeatherIcon() async {
-    var weatherId = weather.value.id;
+    var weatherId = weathers.value.id;
     if (weatherId < 299) {
       weatherIcon.value = _weatherIconList[0];
     } else if (weatherId < 532) {
