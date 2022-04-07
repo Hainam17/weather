@@ -6,6 +6,7 @@ class SearchController extends GetxController{
   TextEditingController cityText = TextEditingController();
   handleSearchCity(BuildContext context) {
     c.fetchWeather(cityText.text);
+    c.guessWeather(cityText.text);
     FocusScopeNode currentFocus = FocusScope.of(context);
     if (!currentFocus.hasPrimaryFocus) {
       currentFocus.unfocus();

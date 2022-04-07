@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:weather_app/common/bar.dart';
 import 'package:weather_app/common/label.dart';
 import 'package:weather_app/controllers/weather_controller.dart';
-import 'package:simple_shadow/simple_shadow.dart';
 import 'package:weather_app/pages/guess/guess.dart';
 import 'package:weather_app/pages/search/search.dart';
 import 'package:weather_app/pages/weathericon/weathericon.dart';
@@ -63,12 +62,7 @@ class WeatherPage extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                        SimpleShadow(
-                          opacity: 0.25,
-                          color: Colors.black,
-                          offset: Offset(3, 7),
-                          sigma: 25,
-                          child: Text(
+                        Text(
                             '${(c.weathers.value.temp - 273.15).toStringAsFixed(0)}\u00B0',
                             style:const TextStyle(
                               fontSize: 90,
@@ -76,6 +70,25 @@ class WeatherPage extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'H:${(c.guess.value.daily!.first.temp!.max- 273).toStringAsFixed(0)}\u00B0',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 22
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            Text(
+                              'L:${(c.guess.value.daily!.first.temp!.min- 273).toStringAsFixed(0)}\u00B0',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22
+                              ),
+                            )
+                          ],
                         ),
                         Text(
                           '${c.weathers.value.description.toUpperCase()}',

@@ -12,6 +12,8 @@ class WeatherService {
   Future<WeatherModel> fetchWeather(String city) async {
     var url = Uri.parse(
         'https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$appiId');
+    print('++++++++++++++++++++++++++${city}');
+    print('-----------------------${url}');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
@@ -26,7 +28,7 @@ class WeatherService {
     Location newLocation = locations.first;
     cityLat =newLocation.latitude.toString();
     cityLong = newLocation.longitude.toString();
-    print('======================${cityLong} && ${cityLat}');
+    print('======================${cityLat} && ${cityLong}');
     var daily =Uri.parse(
         'https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLong}&exclude=hourly,dailyt&appid=${appiId}');
         print('daily...... ${daily}');
@@ -34,8 +36,6 @@ class WeatherService {
     if (feedback.statusCode == 200) {
       var resul = jsonDecode(feedback.body);
       DailyTwoDay model = DailyTwoDay.fromJson(resul);
-      print('======modelmodelmodel================$model');
-
       return model;
     } else {
       throw 'Error';

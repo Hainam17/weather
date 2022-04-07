@@ -18,8 +18,7 @@ class WeatherController extends GetxController {
     humidity: 0,
     pressure: 0,
   ).obs;
-  var guess = DailyTwoDay(
-  ).obs;
+  var guess = DailyTwoDay().obs;
   var cityValue = ''.obs;
   var day = DateFormat.d().format(DateTime.now());
   var month = DateFormat.LLLL().format(DateTime.now());
@@ -40,8 +39,8 @@ class WeatherController extends GetxController {
     super.onInit();
     getLocation();
     Future.delayed(Duration(seconds: 8),(){
-      fetchWeather(cityValue.value);
       guessWeather(cityValue.value);
+      fetchWeather(cityValue.value);
     });
   }
 

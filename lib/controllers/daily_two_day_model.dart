@@ -1,18 +1,9 @@
 class DailyTwoDay {
-  double? lat;
-  double? lon;
-  String? timezone;
-  int? timezoneOffset;
   List<Daily>? daily;
 
-  DailyTwoDay(
-      {this.lat, this.lon, this.timezone, this.timezoneOffset, this.daily});
+  DailyTwoDay({this.daily});
 
   DailyTwoDay.fromJson(Map<String, dynamic> json) {
-    lat = json['lat'];
-    lon = json['lon'];
-    timezone = json['timezone'];
-    timezoneOffset = json['timezone_offset'];
     if (json['daily'] != null) {
       daily = <Daily>[];
       json['daily'].forEach((v) {
@@ -23,10 +14,6 @@ class DailyTwoDay {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['lat'] = this.lat;
-    data['lon'] = this.lon;
-    data['timezone'] = this.timezone;
-    data['timezone_offset'] = this.timezoneOffset;
     if (this.daily != null) {
       data['daily'] = this.daily!.map((v) => v.toJson()).toList();
     }
@@ -35,29 +22,27 @@ class DailyTwoDay {
 }
 
 class Daily {
-  int? dt;
+  int dt =0;
   int? sunrise;
   int? sunset;
   int? moonrise;
   int? moonset;
   Temp? temp;
-  FeelsLike? feelsLike;
   int? pressure;
-  int? humidity;
+  int humidity=0;
   int? windDeg;
   List<Weather>? weather;
   int? clouds;
 
   Daily(
-      {this.dt,
+      {required this.dt,
         this.sunrise,
         this.sunset,
         this.moonrise,
         this.moonset,
         this.temp,
-        this.feelsLike,
         this.pressure,
-        this.humidity,
+        required this.humidity,
         this.windDeg,
         this.weather,
         this.clouds,
@@ -70,9 +55,6 @@ class Daily {
     moonrise = json['moonrise'];
     moonset = json['moonset'];
     temp = json['temp'] != null ? new Temp.fromJson(json['temp']) : null;
-    feelsLike = json['feels_like'] != null
-        ? new FeelsLike.fromJson(json['feels_like'])
-        : null;
     pressure = json['pressure'];
     humidity = json['humidity'];
     windDeg = json['wind_deg'];
@@ -95,9 +77,6 @@ class Daily {
     if (this.temp != null) {
       data['temp'] = this.temp!.toJson();
     }
-    if (this.feelsLike != null) {
-      data['feels_like'] = this.feelsLike!.toJson();
-    }
     data['pressure'] = this.pressure;
     data['humidity'] = this.humidity;
     data['wind_deg'] = this.windDeg;
@@ -110,14 +89,14 @@ class Daily {
 }
 
 class Temp {
-  double? day;
-  double? min;
-  double? max;
+  double day =0;
+  double min=0;
+  double max=0;
   double? night;
   double? eve;
   double? morn;
 
-  Temp({this.day, this.min, this.max, this.night, this.eve, this.morn});
+  Temp({required this.day, required this.min, required this.max, this.night, this.eve, this.morn});
 
   Temp.fromJson(Map<String, dynamic> json) {
     day = json['day'];
@@ -133,31 +112,6 @@ class Temp {
     data['day'] = this.day;
     data['min'] = this.min;
     data['max'] = this.max;
-    data['night'] = this.night;
-    data['eve'] = this.eve;
-    data['morn'] = this.morn;
-    return data;
-  }
-}
-
-class FeelsLike {
-  double? day;
-  double? night;
-  double? eve;
-  double? morn;
-
-  FeelsLike({this.day, this.night, this.eve, this.morn});
-
-  FeelsLike.fromJson(Map<String, dynamic> json) {
-    day = json['day'];
-    night = json['night'];
-    eve = json['eve'];
-    morn = json['morn'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['day'] = this.day;
     data['night'] = this.night;
     data['eve'] = this.eve;
     data['morn'] = this.morn;
