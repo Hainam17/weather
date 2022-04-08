@@ -85,7 +85,7 @@ class WeatherController extends GetxController {
     }
   }
   String address ='';
-  void getLocation() async {
+  getLocation() async {
     bool serviceEnabled;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
@@ -111,6 +111,5 @@ class WeatherController extends GetxController {
     List<Placemark> placemarks = await placemarkFromCoordinates(longitude, latitude);
     Placemark newPlacemark = placemarks.first;
     cityValue.value=newPlacemark.administrativeArea!;
-    print('=====================${cityValue.value}');
   }
 }

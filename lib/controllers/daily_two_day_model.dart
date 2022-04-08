@@ -97,12 +97,9 @@ class Temp {
       required this.morn});
 
   Temp.fromJson(Map<String, dynamic> json) {
-    day = json['day'];
+    day = json['day'] != null ? double.tryParse(json['min'].toString())! : 0.0;
     min = json['min'] != null ? double.tryParse(json['min'].toString())! : 0.0;
     max = json['max'] != null ? double.tryParse(json['max'].toString())! : 0.0;
-    // night = json['night'];
-    // eve = json['eve'];
-    // morn = json['morn'];
   }
 
   Map<String, dynamic> toJson() {
@@ -110,9 +107,6 @@ class Temp {
     data['day'] = this.day;
     data['min'] = this.min;
     data['max'] = this.max;
-    // data['night'] = this.night;
-    // data['eve'] = this.eve;
-    // data['morn'] = this.morn;
     return data;
   }
 }

@@ -95,26 +95,6 @@ class _WeatherPageState extends State<WeatherPage> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.center,
-                              //   children: [
-                              //     Text(
-                              //       'H:${(c.guess.value.daily!.first.temp!.max- 273).toStringAsFixed(0)}\u00B0',
-                              //       style: TextStyle(
-                              //           color: Colors.white,
-                              //           fontSize: 22
-                              //       ),
-                              //     ),
-                              //     const SizedBox(width: 20),
-                              //     Text(
-                              //       'L:${(c.guess.value.daily!.first.temp!.min- 273).toStringAsFixed(0)}\u00B0',
-                              //       style: TextStyle(
-                              //           color: Colors.white,
-                              //           fontSize: 22
-                              //       ),
-                              //     )
-                              //   ],
-                              // ),
                               Text(
                                 '${c.weathers.value.description.toUpperCase()}',
                                 style: const TextStyle(
