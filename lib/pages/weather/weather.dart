@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:weather_app/common/bar.dart';
 import 'package:weather_app/common/label.dart';
 import 'package:weather_app/controllers/weather_controller.dart';
@@ -8,34 +7,28 @@ import 'package:weather_app/pages/guess/guess.dart';
 import 'package:weather_app/pages/search/search.dart';
 import 'package:weather_app/pages/weathericon/weathericon.dart';
 
-class WeatherPage extends StatefulWidget {
+class WeatherPage extends StatelessWidget {
   WeatherPage({Key? key}) : super(key: key);
-
-  @override
-  State<WeatherPage> createState() => _WeatherPageState();
-}
-
-class _WeatherPageState extends State<WeatherPage> {
   final c = Get.put(WeatherController());
 
   late bool result;
 
   @override
-  void initState() {
-    _getConnect();
-    super.initState();
-  }
-
-  _getConnect() async {
-    bool result = await InternetConnectionChecker().hasConnection;
-    if(!result){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('No internet')
-      ));
-    }
-  }
-
-  @override
+  // void initState() {
+  //   _getConnect();
+  //   super.initState();
+  // }
+  //
+  // _getConnect() async {
+  //   bool result = await InternetConnectionChecker().hasConnection;
+  //   if(!result){
+  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //         content: Text('No internet')
+  //     ));
+  //   }
+  // }
+  //
+  // @override
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
@@ -88,7 +81,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                 ),
                               ),
                               Text(
-                                '${(c.weathers.value.temp - 273.15).toStringAsFixed(0)}\u00B0',
+                                '${(c.weathers.value.main!.temp - 273.15).toStringAsFixed(0)}\u00B0',
                                 style: const TextStyle(
                                   fontSize: 90,
                                   color: Colors.white,
@@ -96,9 +89,9 @@ class _WeatherPageState extends State<WeatherPage> {
                                 ),
                               ),
                               Text(
-                                '${c.weathers.value.description.toUpperCase()}',
+                                '${c.weathers.value.weather!.first.description}',
                                 style: const TextStyle(
-                                  fontSize: 22,
+                                  fontSize: 30,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -150,7 +143,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        '${c.weathers.value.country}',
+                                        '${c.weathers.value.sys?.country}',
                                         style: const TextStyle(
                                           fontSize: 18,
                                           color: Colors.white,
@@ -166,7 +159,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                       ),
                                       const SizedBox(height: 17),
                                       Text(
-                                        '${c.weathers.value.speed} m/s',
+                                        '${c.weathers.value.wind?.speed} m/s',
                                         style: const TextStyle(
                                           fontSize: 18,
                                           color: Colors.white,
@@ -174,7 +167,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                       ),
                                       const SizedBox(height: 17),
                                       Text(
-                                        '${c.weathers.value.humidity} %',
+                                        '${c.weathers.value.main!.humidity} %',
                                         style: const TextStyle(
                                           fontSize: 18,
                                           color: Colors.white,
@@ -182,7 +175,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                       ),
                                       const SizedBox(height: 17),
                                       Text(
-                                        '${c.weathers.value.pressure} PA',
+                                        '${c.weathers.value.main!.pressure} PA',
                                         style: const TextStyle(
                                           fontSize: 18,
                                           color: Colors.white,

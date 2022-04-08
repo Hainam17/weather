@@ -1,9 +1,9 @@
-class DailyTwoDay {
+class Next7Days {
   List<Daily>? daily;
 
-  DailyTwoDay({this.daily});
+  Next7Days({this.daily});
 
-  DailyTwoDay.fromJson(Map<String, dynamic> json) {
+  Next7Days.fromJson(Map<String, dynamic> json) {
     if (json['daily'] != null) {
       daily = <Daily>[];
       json['daily'].forEach((v) {
