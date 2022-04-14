@@ -1,25 +1,18 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:intl/intl.dart';
-import 'package:weather_app/models/weather_model.dart';
+import 'package:weather_app/controllers/weather_model.dart';
 import 'package:weather_app/services/weather_service.dart';
 
 import 'daily_two_day_model.dart';
 
 class WeatherController extends GetxController {
-  var weathers = WeatherModel(
-    id: 0,
-    description: '',
-    country: '',
-    name: '',
-    speed: 0,
-    temp: 0,
-    humidity: 0,
-    pressure: 0,
-  ).obs;
-  var guess = DailyTwoDay().obs;
+  var weathers = WeatherModel().obs;
+  var guess = Next7Days().obs;
   var cityValue = ''.obs;
+  var result =''.obs;
   var day = DateFormat.d().format(DateTime.now());
   var month = DateFormat.LLLL().format(DateTime.now());
   final _weatherIconList = [
@@ -38,6 +31,7 @@ class WeatherController extends GetxController {
   onInit() {
     super.onInit();
     getLocation();
+    getConnect;
     Future.delayed(Duration(seconds: 8),(){
       guessWeather(cityValue.value);
       fetchWeather(cityValue.value);
@@ -59,9 +53,9 @@ class WeatherController extends GetxController {
   Future guessWeather(String city) async {
     isLoading.value = true;
     try {
-      var _twoDaily =
+      var _sevenDaily =
       await WeatherService().guessWeather(city);
-      guess.value= _twoDaily;
+      guess.value= _sevenDaily;
     } catch (f) {
       print(f);
     }
@@ -70,7 +64,7 @@ class WeatherController extends GetxController {
 
   fetchWeatherIcon() async {
     var weatherId = weathers.value.id;
-    if (weatherId < 299) {
+    if (weatherId! < 299) {
       weatherIcon.value = _weatherIconList[0];
     } else if (weatherId < 532) {
       weatherIcon.value = _weatherIconList[1];
@@ -85,7 +79,13 @@ class WeatherController extends GetxController {
     }
   }
   String address ='';
-  void getLocation() async {
+  getConnect() async {
+    bool result = await InternetConnectionChecker().hasConnection;
+    if(!result){
+      return Future.error('No internet');
+    }
+  }
+  getLocation() async {
     bool serviceEnabled;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
@@ -111,6 +111,5 @@ class WeatherController extends GetxController {
     List<Placemark> placemarks = await placemarkFromCoordinates(longitude, latitude);
     Placemark newPlacemark = placemarks.first;
     cityValue.value=newPlacemark.administrativeArea!;
-    print('=====================${cityValue.value}');
   }
 }

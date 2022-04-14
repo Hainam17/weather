@@ -69,6 +69,27 @@ class GuessPage extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                              // Expanded(
+                              //   flex: 2,
+                              //   child: Row(
+                              //     children: [
+                              //       Text(
+                              //         '${DateFormat('Hm').format(DateTime.fromMillisecondsSinceEpoch((e.sunrise+25200)*1000, isUtc: true))}/',
+                              //         style: const TextStyle(
+                              //           fontSize: 18,
+                              //           color: Colors.white,
+                              //         ),
+                              //       ),
+                              //       Text(
+                              //         '${DateFormat('Hm').format(DateTime.fromMillisecondsSinceEpoch((e.sunset+25200)*1000, isUtc: true))}',
+                              //         style: const TextStyle(
+                              //           fontSize: 18,
+                              //           color: Colors.white,
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                               Expanded(
                                 flex: 1,
                                   child: Image.network('http://openweathermap.org/img/wn/${e.weather!.first.icon}@2x.png', width: 25)),
@@ -93,7 +114,6 @@ class GuessPage extends StatelessWidget {
                                   ],
                                 ),
                               ),
-
                             ],
                           ),
                         )).toList(),
