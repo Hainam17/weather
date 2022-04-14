@@ -10,7 +10,7 @@ import 'package:weather_app/pages/weathericon/weathericon.dart';
 class WeatherPage extends StatelessWidget {
   WeatherPage({Key? key}) : super(key: key);
   final c = Get.put(WeatherController());
-  
+
   @override
   // void initState() {
   //   _getConnect();
